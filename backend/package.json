@@ -1,0 +1,13 @@
+{
+  "name": "pantry-vault",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pantry Vault starter website",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
