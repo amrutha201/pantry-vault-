@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pantry Vault | Waste less. Eat well.</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-icon">🥬</span><span>Pantry<span class="brand-accent">Vault</span><small>USE FOOD WISELY</small></span></a>
+    <nav><a href="#scanner">AI Scan</a><a href="#pantry">My Pantry</a><a href="#recipes">Recipes</a><a href="#ai-kitchen">AI Kitchen</a><a href="#plans">Plans</a></nav>
+    <a class="nav-cta" href="#pantry">Get started <span>↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="dot"></span> YOUR KITCHEN, MADE SMARTER</div>
+        <h1>Good food deserves<br /><em>a second look.</em></h1>
+        <p>Turn the ingredients you already have into something delicious. Keep track of your pantry, discover recipes, and waste less every day.</p>
+        <div class="hero-actions"><a class="button primary" href="#pantry">Explore my pantry <span>→</span></a><a class="text-link" href="#recipes">Find a recipe ↓</a></div>
+        <div class="hero-note"><span class="avatars">🥕 🍅 🥑</span><span><strong>A little less waste.</strong><br />A lot more possibility.</span></div>
+      </div>
+      <div class="hero-art">
+        <div class="sun"></div><div class="art-label label-top">FRESH IDEAS DAILY ✳</div>
+        <div class="produce">🥑</div><div class="produce tomato">🍅</div><div class="produce carrot">🥕</div><div class="produce leafy">🥬</div>
+        <div class="art-card"><span class="art-card-icon">✦</span><div><strong>Your pantry has potential.</strong><small>Let's make something good.</small></div></div>
+        <div class="art-label label-bottom">FRESH • SIMPLE • SUSTAINABLE</div>
+      </div>
+    </section>
+
+    <section class="scan-section section" id="scanner">
+      <div class="section-heading"><div><div class="eyebrow">FROM PHOTO TO POSSIBILITY</div><h2>Scan your <em>ingredients.</em></h2><p>Take a photo of your groceries or upload one. Review the detected foods before adding them.</p></div><span class="recipe-badge">📸 SMART SCAN</span></div>
+      <div class="scan-layout">
+        <div class="scan-upload"><div class="scan-icon">📷</div><h3>What's in your kitchen?</h3><p>Use your camera or choose a photo of ingredients on a counter.</p>
+          <input id="scanFile" type="file" accept="image/*" capture="environment" hidden />
+          <div class="scan-actions"><button class="button primary" id="choosePhoto" type="button">Choose / take photo</button><button class="button secondary" id="scanButton" type="button" disabled>Identify ingredients</button></div>
+          <div id="scanStatus" class="scan-status" role="status">Photo recognition needs an AI API key; without one, you can still add detected items manually.</div>
+        </div>
+        <div class="scan-preview" id="scanPreview"><div class="preview-placeholder"><span>🥕 🍅 🥦</span><strong>Your photo preview appears here</strong><small>Bright, clear photos work best.</small></div></div>
+      </div>
+      <div id="scanResults" class="scan-results" hidden><h3>Review ingredients</h3><p>Remove anything the scan got wrong, then add the rest to your pantry.</p><div id="scanChips" class="scan-chips"></div><button class="button primary" id="addScanned" type="button">Add selected ingredients</button></div>
+    </section>
+
+    <section class="stats">
+      <div><span class="stat-icon">🥦</span><p><strong>Use what you have</strong><small>Make ingredients count</small></p></div>
+      <div><span class="stat-icon">🍲</span><p><strong>Find your next meal</strong><small>Ideas from your pantry</small></p></div>
+      <div><span class="stat-icon">🌱</span><p><strong>Waste less</strong><small>Build mindful habits</small></p></div>
+    </section>
+
+    <section class="section" id="pantry">
+      <div class="section-heading"><div><div class="eyebrow">YOUR FOOD, IN ONE PLACE</div><h2>Inside your pantry<span>.</span></h2><p>Add the ingredients you have at home to get started.</p></div><div class="pantry-count"><strong id="itemCount">0</strong><span>items in pantry</span></div></div>
+      <form id="ingredientForm" class="add-form">
+        <label class="field"><span>Ingredient name</span><input id="ingredientName" required placeholder="e.g. Tomatoes" maxlength="50" /></label>
+        <label class="field"><span>Quantity</span><input id="ingredientQty" placeholder="e.g. 4 pieces" maxlength="30" /></label>
+        <label class="field"><span>Use by (optional)</span><input id="ingredientExpiry" type="date" /></label>
+        <button class="button primary add-button" type="submit">＋ Add ingredient</button>
+      </form>
+      <div id="pantryList" class="pantry-grid"></div>
+      <div id="emptyState" class="empty-state"><span>🧺</span><strong>Your pantry is waiting</strong><p>Add your first ingredient above. Your next favourite meal might already be in your kitchen.</p></div>
+    </section>
+
+    <section class="recipes-section" id="recipes">
+      <div class="section-heading"><div><div class="eyebrow">A LITTLE INSPIRATION</div><h2>What can you <em>make?</em></h2><p>Choose a cuisine once; matching recipes update automatically. Main ingredients must be in your pantry, while other seasonings and add-ins are optional.</p></div><span class="recipe-badge">🥄 EASY TO MAKE</span></div>
+      <div class="recipe-preferences">
+        <label for="spicePreference">Your spice preference</label>
+        <select id="spicePreference"><option value="mild">Mild 🌿</option><option value="medium" selected>Medium 🌶️</option><option value="spicy">Spicy 🔥</option></select>
+        <label for="cuisinePreference">Cuisine</label>
+        <select id="cuisinePreference"><option value="Indian" selected>Indian</option><option value="all">Any cuisine</option><option value="Italian">Italian</option><option value="Chinese">Chinese</option><option value="Mexican">Mexican</option><option value="British">British</option><option value="American">American</option><option value="Thai">Thai</option></select>
+        
+      </div>
+      <p id="recipeStatus" class="disclaimer" role="status">Add ingredients to your pantry to find matching recipes.</p>
+      <div id="recipeGrid" class="recipe-grid"></div>
+      <p class="disclaimer">Recipe ideas are matched against your pantry. Each recipe shows an estimated total time. Open it for quantities and step-by-step instructions; optional extras are clearly marked.</p>
+    </section>
+
+    <section class="section expiry-section" id="expiry">
+      <div class="expiry-copy"><div class="eyebrow">SAVE IT BEFORE IT'S TOO LATE</div><h2>Use it soon.<br /><em>Love it longer.</em></h2><p>Keep an eye on items approaching their use-by date and give them a place in your next meal.</p></div>
+      <div class="expiry-panel"><div class="expiry-panel-head"><span>⏳</span><div><strong>Expiry watch</strong><small>Items with a date you added</small></div></div><div id="expiryList"></div></div>
+    </section>
+
+    <section class="section stores-section" id="stores"><div class="section-heading"><div><div class="eyebrow">MISSING ONE OR TWO THINGS?</div><h2>Find a nearby <em>store.</em></h2><p>Search for grocery shops near you, or look for a specific missing ingredient.</p></div><span class="recipe-badge">🛍️ SHOP SMART</span></div>
+      <div class="store-tools"><label class="field"><span>What do you need?</span><input id="storeSearch" placeholder="e.g. cumin, tomatoes, rice" /></label><button class="button primary" id="findStores" type="button">Find nearby stores ↗</button><button class="button secondary" id="findIngredientStores" type="button">Search this ingredient</button></div><p class="store-note">This opens Google Maps in a new tab. Check store hours and availability before visiting.</p>
+    </section>
+
+
+    <section class="section ai-section" id="ai-kitchen">
+      <div class="section-heading"><div><div class="eyebrow">YOUR PERSONAL KITCHEN HELPER</div><h2>Ask your <em>AI kitchen.</em></h2><p>Get ideas for meals, ingredient swaps, storage tips and ways to use food before it expires.</p></div><span class="recipe-badge">✦ AI ASSISTANT</span></div>
+      <div class="ai-assistant-card">
+        <div class="ai-assistant-intro"><span class="ai-symbol">✦</span><div><strong>Pantry Vault AI</strong><small>Uses your pantry list as context</small></div></div>
+        <div class="ai-prompts"><button type="button" class="prompt-chip" data-prompt="Suggest a meal I can make with my current pantry ingredients.">What can I cook?</button><button type="button" class="prompt-chip" data-prompt="Suggest ingredient substitutions for a recipe when I am missing something.">Ingredient swaps</button><button type="button" class="prompt-chip" data-prompt="Give me practical food storage tips to reduce food waste.">Reduce food waste</button></div>
+        <form id="aiForm" class="ai-form"><label class="field"><span>Your question</span><textarea id="aiQuestion" rows="3" maxlength="1000" placeholder="e.g. Make a 20-minute dinner with rice, tomatoes and eggs…" required></textarea></label><button class="button primary" id="askAI" type="submit">Ask AI ✦</button></form>
+        <div id="aiStatus" class="ai-status" role="status">For live AI answers, add an OPENAI_API_KEY to the server's environment. Without it, the rest of Pantry Vault still works.</div>
+        <div id="aiAnswer" class="ai-answer" hidden></div>
+      </div>
+    </section>
+
+    <section class="section plans-section" id="plans">
+      <div class="section-heading"><div><div class="eyebrow">PICK YOUR PANTRY PLAN</div><h2>More help for <em>less waste.</em></h2><p>Choose a plan to preview the features. Payments are not connected in this demo website.</p></div><span class="recipe-badge">🌱 PLANS</span></div>
+      <div class="plans-grid">
+        <article class="plan-card"><div class="plan-kicker">START HERE</div><h3>Free</h3><p class="plan-price">₹0 <small>/ forever</small></p><p class="plan-description">The essentials for a more organised kitchen.</p><ul><li>✓ Pantry ingredient tracker</li><li>✓ Recipe matching</li><li>✓ Expiry reminders</li><li>✓ Nearby grocery search</li></ul><button type="button" class="button secondary plan-button" data-plan="Free">Choose Free</button></article>
+        <article class="plan-card featured-plan"><div class="plan-ribbon">MOST POPULAR</div><div class="plan-kicker">FOR EVERYDAY COOKS</div><h3>Pantry Plus</h3><p class="plan-price">₹149 <small>/ month</small></p><p class="plan-description">More planning tools to make ingredients go further.</p><ul><li>✓ Everything in Free</li><li>✓ Weekly meal-planning tools</li><li>✓ Smart leftover ideas</li><li>✓ Shopping-list suggestions</li></ul><button type="button" class="button primary plan-button" data-plan="Pantry Plus">Choose Pantry Plus</button></article>
+        <article class="plan-card"><div class="plan-kicker">AI POWERED</div><h3>AI Chef</h3><p class="plan-price">₹299 <small>/ month</small></p><p class="plan-description">A personal assistant for meal ideas and kitchen questions.</p><ul><li>✓ Everything in Pantry Plus</li><li>✓ AI meal suggestions</li><li>✓ Ingredient substitutions</li><li>✓ Food storage & waste tips</li></ul><button type="button" class="button secondary plan-button" data-plan="AI Chef">Choose AI Chef</button></article>
+      </div>
+      <p id="planStatus" class="plan-status" role="status">Plans are demo previews. No payment will be taken.</p>
+    </section>
+
+    <section class="closing-cta"><span>🌿</span><h2>Small changes. Less waste.</h2><p>Every ingredient used is a little win for your kitchen and the planet.</p><a href="#pantry" class="button light">Update my pantry ↑</a></section>
+  </main>
+  <footer><a class="brand footer-brand" href="#"><span class="brand-icon">🥬</span><span>Pantry<span class="brand-accent">Vault</span><small>USE FOOD WISELY</small></span></a><p>Use food wisely. Waste less. Live sustainably.</p><span>Made for a more mindful kitchen © 2026</span></footer>
+  <div id="recipeModal" class="modal-backdrop" hidden><section class="recipe-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button id="closeRecipe" class="modal-close" aria-label="Close recipe">×</button><div id="modalEmoji" class="modal-emoji">🍲</div><div class="eyebrow" id="modalMeta">STEP-BY-STEP RECIPE</div><h2 id="modalTitle">Recipe</h2><p id="modalDescription"></p><div class="recipe-detail-grid"><div><h3>Ingredients & amounts</h3><ul id="modalIngredients"></ul><h3>Optional extras</h3><ul id="modalOptional"></ul></div><div><h3>Let's cook</h3><ol id="modalSteps"></ol></div></div><button id="shopMissing" class="button primary" type="button">Find ingredients at nearby stores ↗</button></section></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
